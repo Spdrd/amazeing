@@ -16,67 +16,102 @@ public class generarNivel : MonoBehaviour
     [SerializeField] GameObject meta;
     [SerializeField] GameObject bola;
 
+    [SerializeField] Camera camara;
+    [SerializeField] GameObject camaraGO;
+
+    private float camX = 0;
+    private float camY = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         LeerNivel();
+        MoverCamara();
     }
+
+    public void MoverCamara()
+    {
+        Vector3 posCamara = new Vector3(camX, camY, 0);
+        camara.gameObject.transform.position += posCamara;
+
+        //camara.gameObject.transform = (4.19f * 2 * camY) / 9;
+    }
+
     public void LeerNivel()
     {
         //Read the text from directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         string tamCuadricula = reader.ReadLine();
         string[] tamArray = tamCuadricula.Split("X");
-        int x = int.Parse(tamArray[0]) / 2;
-        int y = int.Parse(tamArray[1]) / 2;
-        int posY = (y - 1) / 2;
+        int posY = 0;
 
-        GenerarLinea(reader.ReadLine(), x, posY);
+        GenerarLinea(reader.ReadLine(), posY);
+
         posY--;
 
         string lineaV;
 
         while ((lineaV = reader.ReadLine()) != null)
         {
-            GenerarLinea(lineaV, x, posY);
-            GenerarLinea(reader.ReadLine(), x, posY);
+            GenerarLinea(lineaV, posY);
+            GenerarLinea(reader.ReadLine(), posY);
             posY--;
         }
+
+        int posUltima = posY;
+
+        camY = posUltima / 2;
 
 
         reader.Close();
     }
 
-    public void GenerarLinea(string linea, int x, int y)
+    public void GenerarLinea(string linea, int y)
     {
-        string[] infoLinea = linea.Split("r", StringSplitOptions.RemoveEmptyEntries);
-
-        int posX = -(x - 1) / 2;
-
+        char[] infoLinea = linea.ToCharArray();
+        int posX = 0;
+        int posPrimera = posX;
 
         for (int i = 0;  i < infoLinea.Length; i++)
         {
-            if (infoLinea[i].Equals("W"))
+            if (infoLinea[i].Equals('W'))
             {
                 Instanciar(posX, y, muroV, 1);
             }
 
-            if (infoLinea[i].Equals("L"))
+            if (infoLinea[i].Equals('L'))
             {
                 Instanciar(posX, y, limiteV, 1);
             }
-            if (infoLinea[i].Equals("w"))
+            if (infoLinea[i].Equals('w'))
             {
                 Instanciar(posX, y, muroH, 2);
             }
 
-            if (infoLinea[i].Equals("l"))
+            if (infoLinea[i].Equals('l'))
             {
                 Instanciar(posX, y, limiteH, 2);
             }
-            posX++;
+
+            if (infoLinea[i].Equals('B'))
+            {
+                Instanciar(posX, y, bola, 3);
+            }
+
+            if (infoLinea[i].Equals('M'))
+            {
+                Instanciar(posX, y, meta, 3);
+            }
+
+            if (!infoLinea[i].Equals('r') && !infoLinea[i].Equals('B') && !infoLinea[i].Equals('M'))
+            {
+                posX++;
+            }
 
         }
+
+        int posUltima = posX;
+        camX = posUltima / 2;
     }
 
     public void Instanciar(int x, int y, GameObject objeto, int tipo)
@@ -96,7 +131,8 @@ public class generarNivel : MonoBehaviour
         }
         if(tipo == 3)
         {
-            posX += 0.5f;
+            posX -= 1;
+            posY += 0.5f;
         }
 
         Vector3 pos = new Vector3(posX, posY, 0);
