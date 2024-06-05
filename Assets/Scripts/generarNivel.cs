@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class generarNivel : MonoBehaviour
 {
-    [SerializeField] string path = "Assets/Niveles/nivel1AMZNG.txt";
     [SerializeField] GameObject limiteH;
     [SerializeField] GameObject limiteV;
     [SerializeField] GameObject muroH;
@@ -16,8 +15,8 @@ public class generarNivel : MonoBehaviour
     [SerializeField] GameObject meta;
     [SerializeField] GameObject bola;
 
-    [SerializeField] Camera camara;
     [SerializeField] GameObject camaraGO;
+    [SerializeField] Camera camera;
 
     private float camX = 0;
     private float camY = 0;
@@ -32,15 +31,14 @@ public class generarNivel : MonoBehaviour
     public void MoverCamara()
     {
         Vector3 posCamara = new Vector3(camX, camY, 0);
-        camara.gameObject.transform.position += posCamara;
-
-        //camara.gameObject.transform = (4.19f * 2 * camY) / 9;
+        camaraGO.transform.position += posCamara;
+        //camera.orthographicSize = -(4.5f * 2 * camY) / 9;
     }
 
     public void LeerNivel()
     {
         //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
+        StreamReader reader = new StreamReader(ClaseEstatica.nivelSeleccionado);
         string tamCuadricula = reader.ReadLine();
         string[] tamArray = tamCuadricula.Split("X");
         int posY = 0;

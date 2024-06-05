@@ -5,28 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Inicio.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Inicio.unity
     guid: b638baa0f2a00ad459be973b97cb2726
-  - enabled: 1
-    path: Assets/Scenes/Nivel 1.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Nivel 1.unity
     guid: b6b4a99e07a0c5e45a96d875a505bf56
-  - enabled: 1
-    path: Assets/Scenes/Nivel 2.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Nivel 2.unity
     guid: 746ef3519ecbf084cb6b8accd36aad5f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nivel 3.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Nivel 4.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Nivel 4.unity
     guid: 78403be312e07b44fa7ddd6526daee13
-  - enabled: 1
-    path: Assets/Scenes/Nivel 5.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Nivel 5.unity
     guid: 820751e6eb12f0c4a94797e2cecb9a04
-  - enabled: 1
-    path: Assets/Scenes/Nivel 6.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Nivel 6.unity
     guid: f4e83fd36d6a2de4b926e22661488175
-  - enabled: 1
-    path: Assets/Scenes/Terminado.unity
+  - enabled: 0
+    path: Assets/Scenes/Legacy/Terminado.unity
     guid: 9d859e1393c7d024b8e5ed474e10e52c
+  - enabled: 1
+    path: Assets/Scenes/Nivel TXT.unity
+    guid: 32e3a62c6b9121a43bd619989e253ae7
   m_configObjects: {}
