@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movimientoHorizontal : MonoBehaviour
+public class MovimientoMuros : MonoBehaviour
 {
     [SerializeField] bool vertical;
     [SerializeField] LayerMask capa;

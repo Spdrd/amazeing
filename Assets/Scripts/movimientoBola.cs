@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movimientoBola : MonoBehaviour
+public class MovimientoBola : MonoBehaviour
 {
     [SerializeField] float distanciaDetect;
     [SerializeField] LayerMask paredH;

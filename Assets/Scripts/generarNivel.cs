@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class generarNivel : MonoBehaviour
+public class GenerarNivel : MonoBehaviour
 {
     [SerializeField] GameObject limiteH;
     [SerializeField] GameObject limiteV;
@@ -16,7 +16,6 @@ public class generarNivel : MonoBehaviour
     [SerializeField] GameObject bola;
 
     [SerializeField] GameObject camaraGO;
-    [SerializeField] Camera camera;
 
     private float camX = 0;
     private float camY = 0;
@@ -32,7 +31,7 @@ public class generarNivel : MonoBehaviour
     {
         Vector3 posCamara = new Vector3(camX, camY, 0);
         camaraGO.transform.position += posCamara;
-        //camera.orthographicSize = -(4.5f * 2 * camY) / 9;
+        Camera.main.orthographicSize = -(4.5f * 2 * camY) / 9;
     }
 
     public void LeerNivel()

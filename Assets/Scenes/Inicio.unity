@@ -167,6 +167,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03616f573e186a24cb8748250b55ef40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  niveles:
+  - Assets/Niveles/nivel1AMZNG.txt
+  - Assets/Niveles/nivelPruebasAMZNG.txt
+  - Assets/Niveles/pantallaTitulo.txt
+  - Assets/Niveles/pantallaTitulo2.txt
+  nivelSeleccionado: 2
 --- !u!1 &1491989426
 GameObject:
   m_ObjectHideFlags: 0

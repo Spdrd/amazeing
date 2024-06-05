@@ -4,7 +4,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class controlEscenas : MonoBehaviour
+public class ControlEscenas : MonoBehaviour
 {
     [SerializeField] string[] niveles;
     [SerializeField] int nivelSeleccionado = -1;

@@ -4,5 +4,11 @@ using UnityEngine;
 
 public static class ClaseEstatica
 {
-    public static string nivelSeleccionado;
+    // Variables globales de selección de nivel
+
+    public static string nivelSeleccionado = "Assets/Niveles/pantallaTitulo2.txt";
+
+    // Variables globales de control de camara
+
+
 }
