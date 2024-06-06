@@ -172,7 +172,8 @@ MonoBehaviour:
   - Assets/Niveles/nivelPruebasAMZNG.txt
   - Assets/Niveles/pantallaTitulo.txt
   - Assets/Niveles/pantallaTitulo2.txt
-  nivelSeleccionado: 2
+  - Assets/Niveles/1x1Test.txt
+  nivelSeleccionado: 4
 --- !u!1 &1491989426
 GameObject:
   m_ObjectHideFlags: 0

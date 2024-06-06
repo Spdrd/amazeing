@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GenerarNivel : MonoBehaviour
 {
+    [SerializeField] float espacio = 0.1f;
     [SerializeField] GameObject limiteH;
     [SerializeField] GameObject limiteV;
     [SerializeField] GameObject muroH;
@@ -29,9 +30,14 @@ public class GenerarNivel : MonoBehaviour
 
     public void MoverCamara()
     {
-        Vector3 posCamara = new Vector3(camX, camY, 0);
-        camaraGO.transform.position += posCamara;
-        Camera.main.orthographicSize = -(4.5f * 2 * camY) / 9;
+        float camZ = camaraGO.transform.position.z;
+        Vector3 posCamara = new Vector3(camX, camY, camZ);
+        camaraGO.transform.position = posCamara;
+        Camera.main.orthographicSize = -camY + (-camY * espacio);
+        if((camY / 10) < (camX / 16))
+        {
+            Camera.main.orthographicSize = (camX * 1.3f) + (camX * espacio);
+        }
     }
 
     public void LeerNivel()
@@ -39,7 +45,6 @@ public class GenerarNivel : MonoBehaviour
         //Read the text from directly from the test.txt file
         StreamReader reader = new StreamReader(ClaseEstatica.nivelSeleccionado);
         string tamCuadricula = reader.ReadLine();
-        string[] tamArray = tamCuadricula.Split("X");
         int posY = 0;
 
         GenerarLinea(reader.ReadLine(), posY);
@@ -56,8 +61,11 @@ public class GenerarNivel : MonoBehaviour
         }
 
         int posUltima = posY;
-
         camY = posUltima / 2;
+        if (ClaseEstatica.esPar(posUltima))
+        {
+            camY += 0.5f;
+        }
 
 
         reader.Close();
@@ -109,6 +117,11 @@ public class GenerarNivel : MonoBehaviour
 
         int posUltima = posX;
         camX = posUltima / 2;
+        if (ClaseEstatica.esPar(posUltima))
+        {
+            camX -= 0.5f;
+        }
+        
     }
 
     public void Instanciar(int x, int y, GameObject objeto, int tipo)
@@ -145,6 +158,6 @@ public class GenerarNivel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        MoverCamara();
     }
 }

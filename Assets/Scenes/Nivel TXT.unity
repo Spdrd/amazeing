@@ -150,12 +150,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281389498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15452.583}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1945763344}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &281389500
 AudioListener:
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999671660f3327743a71b4a962ab2cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoom: 0.1
   limiteH: {fileID: 6223983604098234527, guid: 659534fe552383a4bbbb3bd573a66bf6, type: 3}
   limiteV: {fileID: 1295553318072520494, guid: 3fd4624aac140244a93cf466e1df774b, type: 3}
   muroH: {fileID: 376030718275144289, guid: c82ba86acc31c744a8e2755c7c53ee7a, type: 3}
@@ -279,7 +280,6 @@ MonoBehaviour:
   meta: {fileID: 8407311123097898682, guid: 59290ed0135c5704ca081660fa9b6854, type: 3}
   bola: {fileID: 7117655676292931541, guid: b2523cd6dad2b2240a6dbbdd95e46776, type: 3}
   camaraGO: {fileID: 281389498}
-  camera: {fileID: 281389501}
 --- !u!1 &336995680
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,36 +825,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 336995681}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1945763343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1945763344}
-  m_Layer: 0
-  m_Name: CamUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1945763344
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945763343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15442.583}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 281389499}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -6,9 +6,21 @@ public static class ClaseEstatica
 {
     // Variables globales de selección de nivel
 
-    public static string nivelSeleccionado = "Assets/Niveles/pantallaTitulo2.txt";
+    public static string nivelSeleccionado = "Assets/Niveles/1x1Test.txt";
 
-    // Variables globales de control de camara
+    // Funciones
 
+    public static bool esPar(int eval)
+    {
+
+        if((eval % 2) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }
