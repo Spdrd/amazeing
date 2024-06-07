@@ -158,6 +158,6 @@ public class GenerarNivel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoverCamara();
+
     }
 }

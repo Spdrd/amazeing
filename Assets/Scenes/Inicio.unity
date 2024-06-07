@@ -173,7 +173,7 @@ MonoBehaviour:
   - Assets/Niveles/pantallaTitulo.txt
   - Assets/Niveles/pantallaTitulo2.txt
   - Assets/Niveles/1x1Test.txt
-  nivelSeleccionado: 4
+  nivelSeleccionado: 3
 --- !u!1 &1491989426
 GameObject:
   m_ObjectHideFlags: 0
