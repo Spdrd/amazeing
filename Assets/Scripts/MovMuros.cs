@@ -12,6 +12,8 @@ public class MovMuros : MonoBehaviour
     // Ray Negativo [Abajo / Izquierda]
     private RaycastHit2D ray2;
 
+    private float separacionRay = 0.068f;
+
     private float tiempoW = 0;
     private float tiempoA = 0;
     private float tiempoS = 0;
@@ -27,9 +29,9 @@ public class MovMuros : MonoBehaviour
 
     private float velocidadMovimiento = 1.0f;
 
-    private float longitudRayCast = 0.7f;
+    [SerializeField] float longitudRayCast = 0.7f;
 
-    [SerializeField] Vector3 posDestino;
+    private Vector3 posDestino;
 
     private Vector3 inicio;
     private enum Control
@@ -46,18 +48,72 @@ public class MovMuros : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        posDestino = transform.position;
+        inicio = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         entradas();
+        reinicio();
+        procesarEntrada(control);
+        registrarChoques();
+        mover();
     }
+
+    private void definirPosicion(Vector3 pos)
+    {
+        posDestino = pos;
+    }
+
+    private void reinicio()
+    {
+        if (Input.GetKey(KeyCode.R))
+        {
+            definirPosicion(inicio);
+        }
+    }
+
+    private void registrarChoques()
+    {
+        Vector2 positivo2;
+        Vector2 negativo2;
+        Vector3 positivo3;
+        Vector3 negativo3;
+        if (vertical)
+        {
+            positivo2 = Vector2.right;
+            negativo2 = Vector2.left;
+            positivo3 = Vector3.right;
+            negativo3 = Vector3.left;
+        }
+        else
+        {
+            positivo2 = Vector2.up;
+            negativo2 = Vector2.down;
+            positivo3 = Vector3.up;
+            negativo3 = Vector3.down;
+        }
+        generarRayCast(ref ray1, positivo2, positivo3, separacionRay, longitudRayCast);
+        generarRayCast(ref ray2, negativo2, negativo3, separacionRay, longitudRayCast);
+
+        if (ray1)
+        {
+            posDestino += negativo3;
+        }
+
+        if (ray2)
+        {
+            posDestino += positivo3;
+        }
+    }
+
     private void entrada(ref Control control, KeyCode tecla, Control orden, 
         ref float tiempoTecla)
     {
-        if (Input.GetKey(tecla) && (tiempoA == 0))
+        if (Input.GetKey(tecla) && (tiempoA == 0) && !enMovimiento)
         {
             control = orden;
         }
@@ -91,6 +147,31 @@ public class MovMuros : MonoBehaviour
         control = con;
     }
 
+    private void procesarEntrada(Control entrada)
+    {
+        // Mov Vertical
+
+        if(entrada == Control.arriba && !vertical)
+        {
+            posDestino += Vector3.up;
+        }
+        if (entrada == Control.abajo && !vertical)
+        {
+            posDestino += Vector3.down;
+        }
+
+        // Mov Horizontal
+
+        if (entrada == Control.derecha && vertical)
+        {
+            posDestino += Vector3.right;
+        }
+        if (entrada == Control.izquierda && vertical)
+        {
+            posDestino += Vector3.left;
+        }
+    }
+
     private void generarRayCast(ref RaycastHit2D ray1, Vector2 direccion,
        Vector3 directionV3, float separacion, float longitud)
     {
@@ -106,13 +187,17 @@ public class MovMuros : MonoBehaviour
         }
     }
 
-    private void movimiento(Control entrada, Control comparar)
+    private void mover()
     {
-        if ((entrada == Control.izquierda) && !enMovimiento && vertical)
+        float step = velocidadMovimiento * Time.deltaTime;
+        if(transform.position != posDestino)
         {
-            enMovimientoLef = true;
             enMovimiento = true;
-            posDestino = transform.position + Vector3.left;
+            transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
+        }
+        else
+        {
+            enMovimiento = false;
         }
     }
 
