@@ -143,15 +143,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24864b8c1be462c419fa1df6c48374b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertical: 0
+  vertical: 1
   capa:
     serializedVersion: 2
     m_Bits: 64
   enMovimientoUp: 0
   enMovimientoLef: 0
   enMovimientoDow: 0
-  enMovimientoRig: 0
+  enMovimientoRig: 1
   rebotando1: 0
   rebotando2: 0
-  longitudRayCast: 0.1
+  longitudRayCast: 0.7
   control: 0

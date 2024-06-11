@@ -94,21 +94,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117655676292931541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435d898a6da067d468d45a485860b3d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e878e7991f45f74ba4b72fe0bc0fd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanciaDetect: 0.17
+  distanciaDetect: 0
   paredH:
     serializedVersion: 2
     m_Bits: 8
   paredV:
     serializedVersion: 2
     m_Bits: 64
-  velocidad: 1
+  velocidad: 0
   posDestino: {x: 0, y: 0, z: 0}
-  enMovimientoUp: 0
+  enMovimientoUp: 1
   enMovimientoLef: 0
   enMovimientoDow: 0
   enMovimientoRig: 0

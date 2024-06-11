@@ -153,5 +153,5 @@ MonoBehaviour:
   enMovimientoRig: 0
   rebotando1: 0
   rebotando2: 0
-  posDestino: {x: 0, y: 0, z: 0}
-  control: 0
+  longitudRayCast: 0.7
+  control: 4

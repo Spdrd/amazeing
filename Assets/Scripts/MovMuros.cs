@@ -20,12 +20,6 @@ public class MovMuros : MonoBehaviour
     private float tiempoD = 0;
 
     private bool enMovimiento = false;
-    [SerializeField] bool enMovimientoUp = false;
-    [SerializeField] bool enMovimientoLef = false;
-    [SerializeField] bool enMovimientoDow = false;
-    [SerializeField] bool enMovimientoRig = false;
-    [SerializeField] bool rebotando1 = false;
-    [SerializeField] bool rebotando2 = false;
 
     private float velocidadMovimiento = 1.0f;
 
