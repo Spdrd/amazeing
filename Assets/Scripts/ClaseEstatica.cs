@@ -8,11 +8,14 @@ public static class ClaseEstatica
 
     public static string nivelSeleccionado = "Assets/Niveles/1x1Test.txt";
 
-    // Funciones
+    // Variables globales movimiento
+    public static bool controlMovH = false;
+    public static bool controlMovV = false;
+
+    // Funciones Generales
 
     public static bool esPar(int eval)
     {
-
         if((eval % 2) == 0)
         {
             return true;
@@ -22,5 +25,4 @@ public static class ClaseEstatica
             return false;
         }
     }
-
 }

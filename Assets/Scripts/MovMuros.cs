@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MovMuros : MonoBehaviour
 {
-    [SerializeField] bool vertical;
+    [SerializeField] bool alta;
     [SerializeField] LayerMask capa;
 
     // Ray Positivo [Arriba / Derecha]
     private RaycastHit2D ray1;
+    private bool choque1 = false;
     // Ray Negativo [Abajo / Izquierda]
     private RaycastHit2D ray2;
+    private bool choque2 = false;
 
     private float separacionRay = 0.068f;
 
@@ -49,24 +51,22 @@ public class MovMuros : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        entradas();
+        if (!accederControlInv())
+        {
+            entradas();
+        }
         reinicio();
         procesarEntrada(control);
         registrarChoques();
         mover();
     }
 
-    private void definirPosicion(Vector3 pos)
-    {
-        posDestino = pos;
-    }
 
     private void reinicio()
     {
         if (Input.GetKey(KeyCode.R))
         {
-            definirPosicion(inicio);
+            posDestino = inicio;
         }
     }
 
@@ -76,7 +76,7 @@ public class MovMuros : MonoBehaviour
         Vector2 negativo2;
         Vector3 positivo3;
         Vector3 negativo3;
-        if (vertical)
+        if (alta)
         {
             positivo2 = Vector2.right;
             negativo2 = Vector2.left;
@@ -93,14 +93,45 @@ public class MovMuros : MonoBehaviour
         generarRayCast(ref ray1, positivo2, positivo3, separacionRay, longitudRayCast);
         generarRayCast(ref ray2, negativo2, negativo3, separacionRay, longitudRayCast);
 
-        if (ray1)
+        if (ray1 && !choque2)
         {
+            choque1 = true;
             posDestino += negativo3;
         }
 
-        if (ray2)
+        if (ray2 && !choque1)
         {
+            choque2 = true;
             posDestino += positivo3;
+        }
+        if (!accederControl())
+        {
+            choque1 = false;
+            choque2 = false;
+        }
+    }
+
+    public bool accederControlInv()
+    {
+        if (alta)
+        {
+            return ClaseEstatica.controlMovV;
+        }
+        else
+        {
+            return ClaseEstatica.controlMovH;
+        }
+    }
+
+    public ref bool accederControl()
+    {
+        if (!alta)
+        {
+            return ref ClaseEstatica.controlMovV;
+        }
+        else
+        {
+            return ref ClaseEstatica.controlMovH;
         }
     }
 
@@ -145,22 +176,22 @@ public class MovMuros : MonoBehaviour
     {
         // Mov Vertical
 
-        if(entrada == Control.arriba && !vertical)
+        if(entrada == Control.arriba && !alta)
         {
             posDestino += Vector3.up;
         }
-        if (entrada == Control.abajo && !vertical)
+        if (entrada == Control.abajo && !alta)
         {
             posDestino += Vector3.down;
         }
 
         // Mov Horizontal
 
-        if (entrada == Control.derecha && vertical)
+        if (entrada == Control.derecha && alta)
         {
             posDestino += Vector3.right;
         }
-        if (entrada == Control.izquierda && vertical)
+        if (entrada == Control.izquierda && alta)
         {
             posDestino += Vector3.left;
         }
@@ -187,6 +218,7 @@ public class MovMuros : MonoBehaviour
         if(transform.position != posDestino)
         {
             enMovimiento = true;
+            accederControl() = true;
             transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
         }
         else
