@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DeteccionMovimiento : MonoBehaviour
 {
-    private float tEsperadoH = 0.0f;
-    private float tEsperadoV = 0.0f;
     [SerializeField] float tEspera = 0.04f;
 
     // Start is called before the first frame update
@@ -17,8 +15,8 @@ public class DeteccionMovimiento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        validarMovimiento(ref ClaseEstatica.controlMovH, ref tEsperadoH);
-        validarMovimiento(ref ClaseEstatica.controlMovV, ref tEsperadoV);
+        validarMovimiento(ref ClaseEstatica.infoMovimientoH.control, ref ClaseEstatica.infoMovimientoH.tEsperado);
+        validarMovimiento(ref ClaseEstatica.infoMovimientoV.control, ref ClaseEstatica.infoMovimientoV.tEsperado);
     }
 
     public void validarMovimiento(ref bool enMov, ref float tEsperado)

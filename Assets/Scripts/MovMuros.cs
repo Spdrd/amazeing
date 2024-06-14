@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,14 @@ public class MovMuros : MonoBehaviour
 {
     [SerializeField] bool alta;
     [SerializeField] LayerMask capa;
+    [SerializeField] LayerMask capaLimite;
 
-    // Ray Positivo [Arriba / Derecha]
+    // Info choque
     private RaycastHit2D ray1;
     private bool choque1 = false;
-    // Ray Negativo [Abajo / Izquierda]
-    private RaycastHit2D ray2;
-    private bool choque2 = false;
+    private Vector2 direccionV2 = Vector2.zero;
+    private Vector3 direccionV3 = Vector3.zero;
+    private float tContactoRay = 0.0f;
 
     private float separacionRay = 0.068f;
 
@@ -51,10 +53,7 @@ public class MovMuros : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!accederControlInv())
-        {
-            entradas();
-        }
+        entradas();
         reinicio();
         procesarEntrada(control);
         registrarChoques();
@@ -67,71 +66,80 @@ public class MovMuros : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             posDestino = inicio;
+            transform.position = inicio;
         }
     }
 
     private void registrarChoques()
     {
-        Vector2 positivo2;
-        Vector2 negativo2;
-        Vector3 positivo3;
-        Vector3 negativo3;
-        if (alta)
-        {
-            positivo2 = Vector2.right;
-            negativo2 = Vector2.left;
-            positivo3 = Vector3.right;
-            negativo3 = Vector3.left;
-        }
-        else
-        {
-            positivo2 = Vector2.up;
-            negativo2 = Vector2.down;
-            positivo3 = Vector3.up;
-            negativo3 = Vector3.down;
-        }
-        generarRayCast(ref ray1, positivo2, positivo3, separacionRay, longitudRayCast);
-        generarRayCast(ref ray2, negativo2, negativo3, separacionRay, longitudRayCast);
+        if(!accederInfoMov().control || !enMovimiento){
 
-        if (ray1 && !choque2)
-        {
-            choque1 = true;
-            posDestino += negativo3;
+            if (alta)
+            {
+                if (transform.position.x < posDestino.x)
+                {
+                    direccionV2 = Vector2.right;
+                    direccionV3 = Vector3.right;
+                }
+                if (transform.position.x > posDestino.x)
+                {
+                    direccionV2 = Vector2.left;
+                    direccionV3 = Vector3.left;
+                }
+            }
+            else
+            {
+                if (transform.position.y < posDestino.y)
+                {
+                    direccionV2 = Vector2.up;
+                    direccionV3 = Vector3.up;
+                }
+                if (transform.position.y > posDestino.y)
+                {
+                    direccionV2 = Vector2.down;
+                    direccionV3 = Vector3.down;
+                }
+            }
+            if(posDestino == transform.position)
+            {
+                direccionV2 = Vector2.zero;
+                direccionV3 = Vector3.zero;
+            }
         }
+        generarRayCast(ref ray1, direccionV2, direccionV3, separacionRay, longitudRayCast, capa);
 
-        if (ray2 && !choque1)
+        if (ray1 && tContactoRay < 1)
         {
-            choque2 = true;
-            posDestino += positivo3;
+            tContactoRay += 1;
+            posDestino -= direccionV3;
         }
-        if (!accederControl())
+        else if(!ray1)
         {
-            choque1 = false;
-            choque2 = false;
+            tContactoRay = 0.0f;
         }
     }
 
-    public bool accederControlInv()
+    public ref infoMovimiento accederInfoMovInv()
     {
         if (alta)
         {
-            return ClaseEstatica.controlMovV;
+            return ref ClaseEstatica.infoMovimientoV;
         }
         else
         {
-            return ClaseEstatica.controlMovH;
+            return ref ClaseEstatica.infoMovimientoH;
         }
     }
 
-    public ref bool accederControl()
+    public ref infoMovimiento accederInfoMov()
     {
         if (!alta)
         {
-            return ref ClaseEstatica.controlMovV;
+            return ref ClaseEstatica.infoMovimientoV;
         }
         else
         {
-            return ref ClaseEstatica.controlMovH;
+            return ref ClaseEstatica.infoMovimientoH;
         }
     }
 
@@ -198,10 +206,10 @@ public class MovMuros : MonoBehaviour
     }
 
     private void generarRayCast(ref RaycastHit2D ray1, Vector2 direccion,
-       Vector3 directionV3, float separacion, float longitud)
+       Vector3 directionV3, float separacion, float longitud, LayerMask cap)
     {
         ray1 = Physics2D.Raycast(transform.position + (directionV3 * separacion), direccion, longitud - separacion,
-            capa);
+            cap);
         if (ray1)
         {
             Debug.DrawRay(transform.position, direccion * longitud, Color.blue);
@@ -218,7 +226,8 @@ public class MovMuros : MonoBehaviour
         if(transform.position != posDestino)
         {
             enMovimiento = true;
-            accederControl() = true;
+            accederInfoMov().control = true;
+            accederInfoMov().tEsperado = 0.0f;
             transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
         }
         else

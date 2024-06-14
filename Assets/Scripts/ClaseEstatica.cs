@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,9 @@ public static class ClaseEstatica
     public static string nivelSeleccionado = "Assets/Niveles/1x1Test.txt";
 
     // Variables globales movimiento
-    public static bool controlMovH = false;
-    public static bool controlMovV = false;
+    public static infoMovimiento infoMovimientoH = new infoMovimiento();
+    public static infoMovimiento infoMovimientoV = new infoMovimiento();
+
 
     // Funciones Generales
 

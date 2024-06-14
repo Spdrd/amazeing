@@ -147,5 +147,8 @@ MonoBehaviour:
   capa:
     serializedVersion: 2
     m_Bits: 64
+  capaLimite:
+    serializedVersion: 2
+    m_Bits: 128
   longitudRayCast: 0.7
   control: 0
