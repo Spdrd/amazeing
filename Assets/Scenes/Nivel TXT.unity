@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 322952668}
   - component: {fileID: 322952669}
   - component: {fileID: 322952670}
+  - component: {fileID: 322952671}
   m_Layer: 0
   m_Name: GeneradorNiveles
   m_TagString: Untagged
@@ -281,7 +282,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tEspera: 0.04
-  movimiento: 0
+--- !u!114 &322952671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322952667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4e202c286de4e40b6c194b7208eac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &336995680
 GameObject:
   m_ObjectHideFlags: 0

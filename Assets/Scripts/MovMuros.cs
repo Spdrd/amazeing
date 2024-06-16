@@ -8,15 +8,19 @@ public class MovMuros : MonoBehaviour
     [SerializeField] bool alta;
     [SerializeField] LayerMask capa;
     [SerializeField] LayerMask capaLimite;
+    private enum Control
+    {
+        arriba,
+        izquierda,
+        abajo,
+        derecha,
+        quieto
+    }
 
     // Info choque
     private RaycastHit2D ray1;
-    private bool choque1 = false;
-    private Vector2 direccionV2 = Vector2.zero;
-    private Vector3 direccionV3 = Vector3.zero;
     private float tContactoRay = 0.0f;
 
-    private float separacionRay = 0.068f;
 
     private float tiempoW = 0;
     private float tiempoA = 0;
@@ -27,26 +31,24 @@ public class MovMuros : MonoBehaviour
 
     private float velocidadMovimiento = 1.0f;
 
-    [SerializeField] float longitudRayCast = 0.7f;
+
+    private Vector2 dirV2; 
+    private Vector3 dirV3;
+
 
     private Vector3 posDestino;
+    private Vector3 prevPosDestino;
 
     private Vector3 inicio;
-    private enum Control
-    {
-        arriba,
-        izquierda,
-        abajo,
-        derecha,
-        quieto
-    }
 
     [SerializeField] Control control;
+    private Control controlEjec;
 
     // Start is called before the first frame update
     void Start()
     {
         posDestino = transform.position;
+        prevPosDestino = posDestino;
         inicio = transform.position;
     }
 
@@ -72,54 +74,14 @@ public class MovMuros : MonoBehaviour
 
     private void registrarChoques()
     {
-        if(!accederInfoMov().control || !enMovimiento){
-
-            if (alta)
-            {
-                if (transform.position.x < posDestino.x)
-                {
-                    direccionV2 = Vector2.right;
-                    direccionV3 = Vector3.right;
-                }
-                if (transform.position.x > posDestino.x)
-                {
-                    direccionV2 = Vector2.left;
-                    direccionV3 = Vector3.left;
-                }
-            }
-            else
-            {
-                if (transform.position.y < posDestino.y)
-                {
-                    direccionV2 = Vector2.up;
-                    direccionV3 = Vector3.up;
-                }
-                if (transform.position.y > posDestino.y)
-                {
-                    direccionV2 = Vector2.down;
-                    direccionV3 = Vector3.down;
-                }
-            }
-            if(posDestino == transform.position)
-            {
-                direccionV2 = Vector2.zero;
-                direccionV3 = Vector3.zero;
-            }
-        }
-        generarRayCast(ref ray1, direccionV2, direccionV3, separacionRay, longitudRayCast, capa);
-
-        if (ray1 && tContactoRay < 1)
+        generarRayCast(ref ray1, dirV2, dirV3, ClaseEstatica.separacionRay, ClaseEstatica.longitudRayCast, capa);
+        if (ray1)
         {
-            tContactoRay += 1;
-            posDestino -= direccionV3;
-        }
-        else if(!ray1)
-        {
-            tContactoRay = 0.0f;
+            posDestino = prevPosDestino - dirV3;
         }
     }
 
-    public ref infoMovimiento accederInfoMovInv()
+    public ref InfoMovimiento accederInfoMovInv()
     {
         if (alta)
         {
@@ -131,7 +93,7 @@ public class MovMuros : MonoBehaviour
         }
     }
 
-    public ref infoMovimiento accederInfoMov()
+    public ref InfoMovimiento accederInfoMov()
     {
         if (!alta)
         {
@@ -178,46 +140,74 @@ public class MovMuros : MonoBehaviour
         entrada(ref con, KeyCode.S, Control.abajo, ref tiempoS);
 
         control = con;
+        if (!enMovimiento)
+        {
+            controlEjec = con;
+        }
     }
 
     private void procesarEntrada(Control entrada)
     {
-        // Mov Vertical
+        if (alta)
+        {
+            // Mov Horizontal
 
-        if(entrada == Control.arriba && !alta)
-        {
-            posDestino += Vector3.up;
+            if (entrada == Control.derecha)
+            {
+                dirV2 = Vector2.right;
+                dirV3 = Vector3.right;
+                posDestino += dirV3;
+                prevPosDestino = posDestino;
+            }
+            if (entrada == Control.izquierda)
+            {
+                dirV2 = Vector2.left;
+                dirV3 = Vector3.left;
+                posDestino += dirV3;
+                prevPosDestino = posDestino;
+            }
         }
-        if (entrada == Control.abajo && !alta)
+        else
         {
-            posDestino += Vector3.down;
-        }
+            // Mov Vertical
 
-        // Mov Horizontal
-
-        if (entrada == Control.derecha && alta)
-        {
-            posDestino += Vector3.right;
+            if (entrada == Control.arriba)
+            {
+                dirV2 = Vector2.up;
+                dirV3 = Vector3.up;
+                posDestino += dirV3;
+                prevPosDestino = posDestino;
+            }
+            if (entrada == Control.abajo)
+            {
+                dirV2 = Vector2.down;
+                dirV3 = Vector3.down;
+                posDestino += dirV3;
+                prevPosDestino = posDestino;
+            }
         }
-        if (entrada == Control.izquierda && alta)
-        {
-            posDestino += Vector3.left;
-        }
+        
     }
 
     private void generarRayCast(ref RaycastHit2D ray1, Vector2 direccion,
        Vector3 directionV3, float separacion, float longitud, LayerMask cap)
     {
-        ray1 = Physics2D.Raycast(transform.position + (directionV3 * separacion), direccion, longitud - separacion,
+        ray1 = Physics2D.Raycast(transform.position + (directionV3 * separacion), direccion, longitud,
             cap);
         if (ray1)
         {
-            Debug.DrawRay(transform.position, direccion * longitud, Color.blue);
+            Debug.DrawRay(transform.position + (directionV3 * separacion), direccion * longitud, Color.blue);
         }
         else
         {
-            Debug.DrawRay(transform.position, direccion * longitud, Color.red);
+            Debug.DrawRay(transform.position + (directionV3 * separacion), direccion * longitud, Color.red);
         }
+    }
+
+    public void mensajeEnMov()
+    {
+        accederInfoMov().enMov = true;
+        accederInfoMov().tEsperado = 0.0f;
     }
 
     private void mover()
@@ -226,7 +216,7 @@ public class MovMuros : MonoBehaviour
         if(transform.position != posDestino)
         {
             enMovimiento = true;
-            accederInfoMov().control = true;
+            accederInfoMov().enMov = true;
             accederInfoMov().tEsperado = 0.0f;
             transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
         }

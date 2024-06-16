@@ -10,8 +10,13 @@ public static class ClaseEstatica
     public static string nivelSeleccionado = "Assets/Niveles/1x1Test.txt";
 
     // Variables globales movimiento
-    public static infoMovimiento infoMovimientoH = new infoMovimiento();
-    public static infoMovimiento infoMovimientoV = new infoMovimiento();
+    public static InfoMovimiento infoMovimientoH = new InfoMovimiento();
+    public static InfoMovimiento infoMovimientoV = new InfoMovimiento();
+
+    // Configuraciones Globales
+
+    public static float separacionRay;
+    public static float longitudRayCast;
 
 
     // Funciones Generales

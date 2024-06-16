@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,17 +16,17 @@ public class DeteccionMovimiento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        validarMovimiento(ref ClaseEstatica.infoMovimientoH.control, ref ClaseEstatica.infoMovimientoH.tEsperado);
-        validarMovimiento(ref ClaseEstatica.infoMovimientoV.control, ref ClaseEstatica.infoMovimientoV.tEsperado);
+        validarMovimiento(ref ClaseEstatica.infoMovimientoH);
+        validarMovimiento(ref ClaseEstatica.infoMovimientoV);
     }
 
-    public void validarMovimiento(ref bool enMov, ref float tEsperado)
+    public void validarMovimiento(ref InfoMovimiento infoMov)
     {
-        tEsperado += Time.deltaTime;
-        if (tEsperado >= tEspera)
+        infoMov.tEsperado += Time.deltaTime;
+        if (infoMov.tEsperado >= tEspera)
         {
-            enMov = false;
-            tEsperado = 0;
+            infoMov.enMov = false;
+            infoMov.tEsperado = 0;
         }
     }
 }

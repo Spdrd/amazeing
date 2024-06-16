@@ -3,21 +3,16 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class infoMovimiento : MonoBehaviour
+    public class InfoMovimiento : MonoBehaviour
     {
-        public bool control;
+
+        public bool enMov;
         public float tEsperado;
 
-        public infoMovimiento()
+        public InfoMovimiento()
         {
-            control = false;
+            enMov = false;
             tEsperado = 0.0f;
         }
-        public infoMovimiento(bool control, float tEsperado)
-        {
-            this.control = control;
-            this.tEsperado = tEsperado;
-        }
-
     }
 }
