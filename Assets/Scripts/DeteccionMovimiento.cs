@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DeteccionMovimiento : MonoBehaviour
 {
-    [SerializeField] float tEspera = 0.04f;
+    [SerializeField] float tEspera = 0.2f;
 
     // Start is called before the first frame update
     void Start()

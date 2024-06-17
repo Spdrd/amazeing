@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovimientoBola : MonoBehaviour
+public class MovBola : MonoBehaviour
 {
-    [SerializeField] float distanciaDetect;
     [SerializeField] LayerMask paredH;
     [SerializeField] LayerMask paredV;
-    [SerializeField] float velocidad;
 
     [SerializeField] Vector3 posDestino;
 
@@ -35,7 +33,7 @@ public class MovimientoBola : MonoBehaviour
         RaycastHit2D rayDow = new RaycastHit2D();
         RaycastHit2D rayDer = new RaycastHit2D();
 
-        float step = velocidad * Time.deltaTime;
+        float step = ClaseEstatica.velocidadBola * Time.deltaTime;
 
         generarRayCast(ref rayUp, ref rayIzq, ref rayDow, ref rayDer);
 
@@ -86,43 +84,43 @@ public class MovimientoBola : MonoBehaviour
     private void generarRayCast(ref RaycastHit2D rayUp, ref RaycastHit2D rayIzq, ref RaycastHit2D rayDow, 
         ref RaycastHit2D rayDer)
     {
-        rayUp = Physics2D.Raycast(transform.position, Vector2.up, distanciaDetect, paredH);
+        rayUp = Physics2D.Raycast(transform.position, Vector2.up, ClaseEstatica.distDetectBola, paredH);
         if (rayUp)
         {
-            Debug.DrawRay(transform.position, Vector2.up * distanciaDetect, Color.blue);
+            Debug.DrawRay(transform.position, Vector2.up * ClaseEstatica.distDetectBola, Color.blue);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector2.up * distanciaDetect, Color.red);
+            Debug.DrawRay(transform.position, Vector2.up * ClaseEstatica.distDetectBola, Color.red);
         }
-        rayIzq = Physics2D.Raycast(transform.position, Vector2.left, distanciaDetect, paredV);
+        rayIzq = Physics2D.Raycast(transform.position, Vector2.left, ClaseEstatica.distDetectBola, paredV);
         if (rayIzq)
         {
-            Debug.DrawRay(transform.position, Vector2.left * distanciaDetect, Color.blue);
+            Debug.DrawRay(transform.position, Vector2.left * ClaseEstatica.distDetectBola, Color.blue);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector2.left * distanciaDetect, Color.red);
+            Debug.DrawRay(transform.position, Vector2.left * ClaseEstatica.distDetectBola, Color.red);
         }
 
-        rayDow = Physics2D.Raycast(transform.position, Vector2.down, distanciaDetect, paredH);
+        rayDow = Physics2D.Raycast(transform.position, Vector2.down, ClaseEstatica.distDetectBola, paredH);
         if (rayDow)
         {
-            Debug.DrawRay(transform.position, Vector2.down * distanciaDetect, Color.blue);
+            Debug.DrawRay(transform.position, Vector2.down * ClaseEstatica.distDetectBola, Color.blue);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector2.down * distanciaDetect, Color.red);
+            Debug.DrawRay(transform.position, Vector2.down * ClaseEstatica.distDetectBola, Color.red);
         }
 
-        rayDer = Physics2D.Raycast(transform.position, Vector2.right, distanciaDetect, paredV);
+        rayDer = Physics2D.Raycast(transform.position, Vector2.right, ClaseEstatica.distDetectBola, paredV);
         if (rayDer)
         {
-            Debug.DrawRay(transform.position, Vector2.right * distanciaDetect, Color.blue);
+            Debug.DrawRay(transform.position, Vector2.right * ClaseEstatica.distDetectBola, Color.blue);
         }
         else
         {
-            Debug.DrawRay(transform.position, Vector2.right * distanciaDetect, Color.red);
+            Debug.DrawRay(transform.position, Vector2.right * ClaseEstatica.distDetectBola, Color.red);
         }
     }
 }

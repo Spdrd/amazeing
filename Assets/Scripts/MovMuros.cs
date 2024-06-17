@@ -28,6 +28,7 @@ public class MovMuros : MonoBehaviour
     private float tiempoD = 0;
 
     private bool enMovimiento = false;
+    private bool permisoMov = true;
 
     private float velocidadMovimiento = 1.0f;
 
@@ -42,7 +43,6 @@ public class MovMuros : MonoBehaviour
     private Vector3 inicio;
 
     [SerializeField] Control control;
-    private Control controlEjec;
 
     // Start is called before the first frame update
     void Start()
@@ -68,13 +68,12 @@ public class MovMuros : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             posDestino = inicio;
-            transform.position = inicio;
         }
     }
 
     private void registrarChoques()
     {
-        generarRayCast(ref ray1, dirV2, dirV3, ClaseEstatica.separacionRay, ClaseEstatica.longitudRayCast, capa);
+        generarRayCast(ref ray1, dirV2, dirV3, ClaseEstatica.separacionRayMuros, ClaseEstatica.longitudRayCastMuros, capa);
         if (ray1)
         {
             posDestino = prevPosDestino - dirV3;
@@ -121,29 +120,28 @@ public class MovMuros : MonoBehaviour
         {
             tiempoTecla = 0;
         }
+        permisoMov = false;
     }
 
     private void entradas()
     {
         Control con = Control.quieto;
 
-        // Izquierda
-        entrada(ref con, KeyCode.A, Control.izquierda, ref tiempoA);
-
-        // Derecha
-        entrada(ref con, KeyCode.D, Control.derecha, ref tiempoD);
-
-        // Arriba
-        entrada(ref con, KeyCode.W, Control.arriba, ref tiempoW);
-
-        // Abajo
-        entrada(ref con, KeyCode.S, Control.abajo, ref tiempoS);
-
-        control = con;
-        if (!enMovimiento)
+        if (permisoMov)
         {
-            controlEjec = con;
+            // Izquierda
+            entrada(ref con, KeyCode.A, Control.izquierda, ref tiempoA);
+
+            // Derecha
+            entrada(ref con, KeyCode.D, Control.derecha, ref tiempoD);
+
+            // Arriba
+            entrada(ref con, KeyCode.W, Control.arriba, ref tiempoW);
+
+            // Abajo
+            entrada(ref con, KeyCode.S, Control.abajo, ref tiempoS);
         }
+        control = con;
     }
 
     private void procesarEntrada(Control entrada)
@@ -223,6 +221,10 @@ public class MovMuros : MonoBehaviour
         else
         {
             enMovimiento = false;
+            if (!(accederInfoMov().enMov || accederInfoMovInv().enMov))
+            {
+                permisoMov = true;
+            }
         }
     }
 

@@ -7,16 +7,21 @@ public static class ClaseEstatica
 {
     // Variables globales de selección de nivel
 
-    public static string nivelSeleccionado = "Assets/Niveles/1x1Test.txt";
+    public static string nivelSeleccionado = "Assets/Niveles/nivelPruebas.txt";
 
     // Variables globales movimiento
     public static InfoMovimiento infoMovimientoH = new InfoMovimiento();
     public static InfoMovimiento infoMovimientoV = new InfoMovimiento();
 
-    // Configuraciones Globales
+    // Configuraciones Globales Muros
+    public static float separacionRayMuros = 0.06f;
+    public static float longitudRayCastMuros = 0.7f;
+    public static float velocidadMuros = 1.0f;
 
-    public static float separacionRay;
-    public static float longitudRayCast;
+    // Configuraciones Bola
+    public static float velocidadBola = 1.4f;
+    public static float distDetectBola = 0.15f;
+
 
 
     // Funciones Generales

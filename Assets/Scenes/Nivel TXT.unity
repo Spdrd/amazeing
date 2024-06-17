@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b42203bc8cc5a439a90fc2a3aea22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tEspera: 0.04
+  tEspera: 0.2
 --- !u!114 &322952671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +294,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4e202c286de4e40b6c194b7208eac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  separacionRay: 0.06
+  longitudRayCast: 0.7
+  enMovH: 0
+  enMovV: 0
 --- !u!1 &336995680
 GameObject:
   m_ObjectHideFlags: 0
