@@ -15,6 +15,8 @@ public class MovBola : MonoBehaviour
     [SerializeField] bool enMovimientoDow = false;
     [SerializeField] bool enMovimientoRig = false;
 
+    private bool reiniciando = false;
+
     private Vector3 inicio;
 
     // Start is called before the first frame update
@@ -34,8 +36,10 @@ public class MovBola : MonoBehaviour
         RaycastHit2D rayDer = new RaycastHit2D();
 
         float step = ClaseEstatica.velocidadBola * Time.deltaTime;
-
-        generarRayCast(ref rayUp, ref rayIzq, ref rayDow, ref rayDer);
+        if(!reiniciando)
+        { 
+            generarRayCast(ref rayUp, ref rayIzq, ref rayDow, ref rayDer); 
+        }
 
         if (rayUp && !enMovimientoDow)
         {
@@ -68,6 +72,10 @@ public class MovBola : MonoBehaviour
             enMovimientoLef = false;
             enMovimientoDow = false;
             enMovimientoRig = false;
+            if(!(ClaseEstatica.infoMovimientoH.enMov || ClaseEstatica.infoMovimientoV.enMov))
+            {
+                reiniciando = false;
+            }
         }
 
         transform.position = Vector3.MoveTowards(transform.position, posDestino, step);

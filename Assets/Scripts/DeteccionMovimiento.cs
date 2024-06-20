@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class DeteccionMovimiento : MonoBehaviour
 {
-    [SerializeField] float tEspera = 0.2f;
+    private float tEspera = 0.0f;
+    [SerializeField] float tSinc = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,11 +23,19 @@ public class DeteccionMovimiento : MonoBehaviour
 
     public void validarMovimiento(ref InfoMovimiento infoMov)
     {
-        infoMov.tEsperado += Time.deltaTime;
-        if (infoMov.tEsperado >= tEspera)
+        if (infoMov.numMurosEnMov == 0)
+        {
+            tEspera += Time.deltaTime;
+        }
+        else
+        {
+            infoMov.enMov = true;
+            tEspera = 0;
+        }
+
+        if(tEspera > tSinc)
         {
             infoMov.enMov = false;
-            infoMov.tEsperado = 0;
         }
     }
 }

@@ -7,12 +7,12 @@ namespace Assets.Scripts
     {
 
         public bool enMov;
-        public float tEsperado;
+        public int numMurosEnMov;
 
         public InfoMovimiento()
         {
             enMov = false;
-            tEsperado = 0.0f;
+            numMurosEnMov = 0;
         }
     }
 }

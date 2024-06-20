@@ -26,9 +26,13 @@ public class MovMuros : MonoBehaviour
     private float tiempoA = 0;
     private float tiempoS = 0;
     private float tiempoD = 0;
+    private float tiempoR = 0;
 
-    private bool enMovimiento = false;
+    private bool enMov = false;
+    private bool enMovAnterior = false;
+    private bool enMovReportado = true;
     private bool permisoMov = true;
+    private bool reiniciando = false;
 
     private float velocidadMovimiento = 1.0f;
 
@@ -41,6 +45,7 @@ public class MovMuros : MonoBehaviour
     private Vector3 prevPosDestino;
 
     private Vector3 inicio;
+
 
     [SerializeField] Control control;
 
@@ -60,6 +65,28 @@ public class MovMuros : MonoBehaviour
         procesarEntrada(control);
         registrarChoques();
         mover();
+        detectarMov();
+    }
+
+    private void detectarMov()
+    {
+        if (enMov != enMovAnterior)
+        {
+            enMovReportado = false;
+        }
+        if (!enMovReportado)
+        {
+            if (enMov)
+            {
+                accederInfoMov().numMurosEnMov++;
+            }
+            else
+            {
+                accederInfoMov().numMurosEnMov--;
+            }
+            enMovAnterior = enMov;
+            enMovReportado = true;
+        }
     }
 
 
@@ -67,7 +94,9 @@ public class MovMuros : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
+            transform.position = inicio;
             posDestino = inicio;
+
         }
     }
 
@@ -107,7 +136,7 @@ public class MovMuros : MonoBehaviour
     private void entrada(ref Control control, KeyCode tecla, Control orden, 
         ref float tiempoTecla)
     {
-        if (Input.GetKey(tecla) && (tiempoA == 0) && !enMovimiento)
+        if (Input.GetKey(tecla) && (tiempoA == 0) && !enMov)
         {
             control = orden;
         }
@@ -202,28 +231,21 @@ public class MovMuros : MonoBehaviour
         }
     }
 
-    public void mensajeEnMov()
-    {
-        accederInfoMov().enMov = true;
-        accederInfoMov().tEsperado = 0.0f;
-    }
-
     private void mover()
     {
         float step = velocidadMovimiento * Time.deltaTime;
         if(transform.position != posDestino)
         {
-            enMovimiento = true;
-            accederInfoMov().enMov = true;
-            accederInfoMov().tEsperado = 0.0f;
+            enMov = true;
             transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
         }
         else
         {
-            enMovimiento = false;
+            enMov = false;
             if (!(accederInfoMov().enMov || accederInfoMovInv().enMov))
             {
                 permisoMov = true;
+                reiniciando = false;
             }
         }
     }
