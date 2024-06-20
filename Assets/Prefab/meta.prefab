@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5101229085851158160}
   - component: {fileID: 3828910564941229558}
   - component: {fileID: 3934910373309670242}
-  - component: {fileID: 611581646106452273}
+  - component: {fileID: 3921907635590746164}
   m_Layer: 0
   m_Name: meta
   m_TagString: Untagged
@@ -131,32 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &611581646106452273
+--- !u!114 &3921907635590746164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8407311123097898682}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d7e6a19634844645bb8a16fd6a67543, type: 3}
+  m_Script: {fileID: 11500000, guid: e22ad6eb924ae0340a686cfdff07397b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nivelTerminado: 0
-  limite1: {fileID: 0}
-  limite2: {fileID: 0}
-  tCompletado: 0
-  tCompletadoBordes: 1
-  tCompletadoFinal: 1
-  posJugador: {fileID: 0}
-  grid1: {fileID: 0}
-  grid2: {fileID: 0}
-  renderer1: {fileID: 0}
-  renderer2: {fileID: 0}
-  renderer3: {fileID: 0}
-  renderer4: {fileID: 0}
-  renderer5: {fileID: 0}
-  fondoAzul: {fileID: 0}
-  SiguienteEscena: Nivel 2
-  tiempoAntesEscena: 5

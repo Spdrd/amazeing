@@ -30,12 +30,14 @@ public class MovBola : MonoBehaviour
     void Update()
     {
         reestart();
+        ClaseEstatica.posBola = transform.position;
         RaycastHit2D rayUp = new RaycastHit2D();
         RaycastHit2D rayIzq = new RaycastHit2D();
         RaycastHit2D rayDow = new RaycastHit2D();
         RaycastHit2D rayDer = new RaycastHit2D();
 
         float step = ClaseEstatica.velocidadBola * Time.deltaTime;
+
         if(!reiniciando)
         { 
             generarRayCast(ref rayUp, ref rayIzq, ref rayDow, ref rayDer); 

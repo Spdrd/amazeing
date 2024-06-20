@@ -1,13 +1,19 @@
 using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovMuros : MonoBehaviour
 {
+    Guid id = Guid.NewGuid();
+
     [SerializeField] bool alta;
     [SerializeField] LayerMask capa;
     [SerializeField] LayerMask capaLimite;
+
+    private InfoMuro infoMuro;
+
     private enum Control
     {
         arriba,
@@ -26,7 +32,6 @@ public class MovMuros : MonoBehaviour
     private float tiempoA = 0;
     private float tiempoS = 0;
     private float tiempoD = 0;
-    private float tiempoR = 0;
 
     private bool enMov = false;
     private bool enMovAnterior = false;
@@ -41,31 +46,32 @@ public class MovMuros : MonoBehaviour
     private Vector3 dirV3;
 
 
-    private Vector3 posDestino;
-    private Vector3 prevPosDestino;
-
-    private Vector3 inicio;
-
-
     [SerializeField] Control control;
 
     // Start is called before the first frame update
     void Start()
     {
-        posDestino = transform.position;
-        prevPosDestino = posDestino;
-        inicio = transform.position;
+        infoMuro = new InfoMuro(transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        verificarDiccionario();
         entradas();
         reinicio();
         procesarEntrada(control);
         registrarChoques();
         mover();
         detectarMov();
+    }
+
+    public void verificarDiccionario()
+    {
+        if (!ClaseEstatica.infoMuros.ContainsKey(id))
+        {
+            ClaseEstatica.infoMuros.Add(id, infoMuro);
+        }
     }
 
     private void detectarMov()
@@ -94,8 +100,8 @@ public class MovMuros : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            transform.position = inicio;
-            posDestino = inicio;
+            transform.position = ClaseEstatica.infoMuros[id].inicio;
+            ClaseEstatica.infoMuros[id].posDestino = ClaseEstatica.infoMuros[id].inicio;
 
         }
     }
@@ -105,7 +111,7 @@ public class MovMuros : MonoBehaviour
         generarRayCast(ref ray1, dirV2, dirV3, ClaseEstatica.separacionRayMuros, ClaseEstatica.longitudRayCastMuros, capa);
         if (ray1)
         {
-            posDestino = prevPosDestino - dirV3;
+            ClaseEstatica.infoMuros[id].posDestino = ClaseEstatica.infoMuros[id].prevPosDestino - dirV3;
         }
     }
 
@@ -183,15 +189,15 @@ public class MovMuros : MonoBehaviour
             {
                 dirV2 = Vector2.right;
                 dirV3 = Vector3.right;
-                posDestino += dirV3;
-                prevPosDestino = posDestino;
+                ClaseEstatica.infoMuros[id].posDestino += dirV3;
+                ClaseEstatica.infoMuros[id].prevPosDestino = ClaseEstatica.infoMuros[id].posDestino;
             }
             if (entrada == Control.izquierda)
             {
                 dirV2 = Vector2.left;
                 dirV3 = Vector3.left;
-                posDestino += dirV3;
-                prevPosDestino = posDestino;
+                ClaseEstatica.infoMuros[id].posDestino += dirV3;
+                ClaseEstatica.infoMuros[id].prevPosDestino = ClaseEstatica.infoMuros[id].posDestino;
             }
         }
         else
@@ -202,15 +208,15 @@ public class MovMuros : MonoBehaviour
             {
                 dirV2 = Vector2.up;
                 dirV3 = Vector3.up;
-                posDestino += dirV3;
-                prevPosDestino = posDestino;
+                ClaseEstatica.infoMuros[id].posDestino += dirV3;
+                ClaseEstatica.infoMuros[id].prevPosDestino = ClaseEstatica.infoMuros[id].posDestino;
             }
             if (entrada == Control.abajo)
             {
                 dirV2 = Vector2.down;
                 dirV3 = Vector3.down;
-                posDestino += dirV3;
-                prevPosDestino = posDestino;
+                ClaseEstatica.infoMuros[id].posDestino += dirV3;
+                ClaseEstatica.infoMuros[id].prevPosDestino = ClaseEstatica.infoMuros[id].posDestino;
             }
         }
         
@@ -234,10 +240,10 @@ public class MovMuros : MonoBehaviour
     private void mover()
     {
         float step = velocidadMovimiento * Time.deltaTime;
-        if(transform.position != posDestino)
+        if(transform.position != ClaseEstatica.infoMuros[id].posDestino)
         {
             enMov = true;
-            transform.position = Vector3.MoveTowards(transform.position, posDestino, step);
+            transform.position = Vector3.MoveTowards(transform.position, ClaseEstatica.infoMuros[id].posDestino, step);
         }
         else
         {
