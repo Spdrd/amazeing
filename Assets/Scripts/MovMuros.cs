@@ -39,7 +39,6 @@ public class MovMuros : MonoBehaviour
     private bool permisoMov = true;
     private bool reiniciando = false;
 
-    private float velocidadMovimiento = 1.0f;
 
 
     private Vector2 dirV2; 
@@ -239,7 +238,7 @@ public class MovMuros : MonoBehaviour
 
     private void mover()
     {
-        float step = velocidadMovimiento * Time.deltaTime;
+        float step = ClaseEstatica.velocidadMuros * Time.deltaTime;
         if(transform.position != ClaseEstatica.infoMuros[id].posDestino)
         {
             enMov = true;

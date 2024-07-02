@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Legacy/Terminado.unity
     guid: 9d859e1393c7d024b8e5ed474e10e52c
   - enabled: 1
+    path: Assets/Scenes/inicio.unity
+    guid: 50bd0258fccc1f449a449318c31b70b6
+  - enabled: 1
     path: Assets/Scenes/Nivel TXT.unity
     guid: 32e3a62c6b9121a43bd619989e253ae7
   m_configObjects: {}

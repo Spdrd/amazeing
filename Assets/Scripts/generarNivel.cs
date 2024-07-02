@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GenerarNivel : MonoBehaviour
 {
+    [SerializeField] Transform padre;
     [SerializeField] float espacio = 0.1f;
     [SerializeField] GameObject limiteH;
     [SerializeField] GameObject limiteV;
@@ -44,7 +45,6 @@ public class GenerarNivel : MonoBehaviour
     {
         //Read the text from directly from the test.txt file
         StreamReader reader = new StreamReader(ClaseEstatica.nivelSeleccionado);
-        string tamCuadricula = reader.ReadLine();
         int posY = 0;
 
         GenerarLinea(reader.ReadLine(), posY);
@@ -149,7 +149,7 @@ public class GenerarNivel : MonoBehaviour
 
         if(tipo != 0)
         {
-            Instantiate(objeto, pos, Quaternion.identity);
+            Instantiate(objeto, pos, Quaternion.identity, padre);
         }
     }
 
