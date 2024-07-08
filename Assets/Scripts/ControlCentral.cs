@@ -8,6 +8,9 @@ namespace Assets.Scripts
 {
     public class ControlCentral : MonoBehaviour
     {
+        // Nivel
+        [SerializeField] string nivelTXT;
+
         // Muros
         [SerializeField] float separacionRayMuros = 0.06f;
         [SerializeField] float longitudRayCastMuros = 0.7f;
@@ -40,6 +43,9 @@ namespace Assets.Scripts
 
         public void visualizarInfo()
         {
+            // Actualizar info Nivel
+            ClaseEstatica.nivelSeleccionado = nivelTXT;
+
             // Actualizacion info Muros
             ClaseEstatica.separacionRayMuros = separacionRayMuros;
             ClaseEstatica.longitudRayCastMuros = longitudRayCastMuros;

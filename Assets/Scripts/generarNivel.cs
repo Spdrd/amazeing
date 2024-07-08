@@ -8,8 +8,10 @@ using UnityEngine;
 
 public class GenerarNivel : MonoBehaviour
 {
-    [SerializeField] Transform padre;
     [SerializeField] float espacio = 0.1f;
+    [SerializeField] Transform padre;
+    [SerializeField] Transform padreLimite;
+    [SerializeField] Transform padreMuro;
     [SerializeField] GameObject limiteH;
     [SerializeField] GameObject limiteV;
     [SerializeField] GameObject muroH;
@@ -81,31 +83,31 @@ public class GenerarNivel : MonoBehaviour
         {
             if (infoLinea[i].Equals('W'))
             {
-                Instanciar(posX, y, muroV, 1);
+                Instanciar(posX, y, muroV, 1, padreMuro);
             }
 
             if (infoLinea[i].Equals('L'))
             {
-                Instanciar(posX, y, limiteV, 1);
+                Instanciar(posX, y, limiteV, 1, padreLimite);
             }
             if (infoLinea[i].Equals('w'))
             {
-                Instanciar(posX, y, muroH, 2);
+                Instanciar(posX, y, muroH, 2, padreMuro);
             }
 
             if (infoLinea[i].Equals('l'))
             {
-                Instanciar(posX, y, limiteH, 2);
+                Instanciar(posX, y, limiteH, 2, padreLimite);
             }
 
             if (infoLinea[i].Equals('B'))
             {
-                Instanciar(posX, y, bola, 3);
+                Instanciar(posX, y, bola, 3, padre);
             }
 
             if (infoLinea[i].Equals('M'))
             {
-                Instanciar(posX, y, meta, 3);
+                Instanciar(posX, y, meta, 3, padre);
             }
 
             if (!infoLinea[i].Equals('r') && !infoLinea[i].Equals('B') && !infoLinea[i].Equals('M'))
@@ -124,7 +126,7 @@ public class GenerarNivel : MonoBehaviour
         
     }
 
-    public void Instanciar(int x, int y, GameObject objeto, int tipo)
+    public void Instanciar(int x, int y, GameObject objeto, int tipo, Transform padre)
     {
         float posX = x;
         float posY = y;

@@ -8,7 +8,7 @@ public static class ClaseEstatica
 {
     // Variables globales de selección de nivel
 
-    public static string nivelSeleccionado;
+    public static string nivelSeleccionado = "Assets / Niveles / nivel1AMZNG.txt";
 
     // Variables globales movimiento
     public static InfoMovimiento infoMovimientoH = new InfoMovimiento();
